@@ -10,6 +10,7 @@ pub struct Transaction {
 // impl Display, get to_string for free
 impl fmt::Display for Transaction {
         fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-                write!(f, "(from: {}, to: {}, amt: {}) ", self.sender, self.recipient, self.amount)
+                write!(f, "(from: {}, to: {}, amt: {}) ", 
+                        self.sender, self.recipient, self.amount)
         }
 }
