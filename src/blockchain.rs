@@ -13,9 +13,21 @@ pub struct Blockchain {
 impl Blockchain {
 
 	pub fn new() -> Blockchain {
-                // Instantiate an empty blockchain
-		let blocks = Vec::new();
+		let mut blocks = Vec::new();
 		let current_transactions = Vec::new();
+
+                // Manually create genesis block
+                let timestamp = match time::SystemTime::now()
+                        .duration_since(time::UNIX_EPOCH) {
+                        Ok(n) => n.as_secs() as i64,
+                        _ => panic!("Invalid SystemTime"),
+                };
+                let transactions = current_transactions.clone();
+                let previous_hash = "0000000000000000000000000000000000000000000000000000000000000000".to_string();
+
+                // Add genesis block as first block
+                blocks.push(Block{index:1, timestamp, transactions, proof:100, previous_hash});
+
 		Blockchain{blocks,current_transactions}
 	}
 
