@@ -58,10 +58,18 @@ impl Blockchain {
                 }
 	}
 
-        pub fn proof_of_work(&self, last_proof: i64) -> u64 {
+        pub fn proof_of_work(&self, last_proof: i64) -> i64 {
                 // Simple proof of work algorithm:
                 //   find a number p such that hash(last_proof, p) 
                 //   contains 4 leading zeros
-                
+                let mut p: i64 = 0;
+                while !self.valid_proof(last_proof, p) { p += 1; }
+                p
+        }
+
+        fn valid_proof(&self, last_proof: i64, new_proof: i64) -> bool{
+                // Validate the proof: Does hash(last_proof,new_proof)
+                // contain 4 leading zeros
+                true
         }
 }
