@@ -70,6 +70,14 @@ impl Blockchain {
         fn valid_proof(&self, last_proof: i64, new_proof: i64) -> bool{
                 // Validate the proof: Does hash(last_proof,new_proof)
                 // contain 4 leading zeros
-                true
+                let mut input_str = String::new();
+                input_str.push_str(last_proof.to_string().as_str());
+                input_str.push_str(new_proof.to_string().as_str());
+
+                let mut hasher = Sha256::default();
+                hasher.input(input_str.as_bytes());
+
+                String::from_utf8(hasher.result().as_slice().to_vec())
+                        .unwrap().starts_with("0000")
         }
 }
