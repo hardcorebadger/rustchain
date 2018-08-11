@@ -18,16 +18,46 @@ fn main() {
   
   let mut router = Router::new();
 
-  router.get("/", get, "root");
+  router.get("/", get_hello, "root");
+  router.get("/mine", get_mine, "mine");
+  router.get("/chain", get_chain, "chain");
+  router.post("/transactions/new", post_transaction, "transaction");
   Iron::new(router).http("localhost:3000").unwrap();
     // chain.new_transaction("me","you",5);
 }
 
-fn get(_request: &mut Request) -> IronResult<Response> {
+fn get_hello(_request: &mut Request) -> IronResult<Response> {
 	let mut response = Response::new();
 	response.set_mut(status::Ok);
 	response.set_mut(mime!(Text/Html; Charset=Utf8));
-	response.set_mut("hey!");
+	response.set_mut("Hey! I'm Rustchain, welcome to the future.\n");
+
+	Ok(response)
+}
+
+fn get_mine(_request: &mut Request) -> IronResult<Response> {
+	let mut response = Response::new();
+	response.set_mut(status::Ok);
+	response.set_mut(mime!(Text/Html; Charset=Utf8));
+	response.set_mut("Click. ** That's the sound of me mining a new block **\n");
+
+	Ok(response)
+}
+
+fn get_chain(_request: &mut Request) -> IronResult<Response> {
+	let mut response = Response::new();
+	response.set_mut(status::Ok);
+	response.set_mut(mime!(Text/Html; Charset=Utf8));
+	response.set_mut("HNow listening to 'The Chain' by Fleetwood Mac.\n");
+
+	Ok(response)
+}
+
+fn post_transaction(_request: &mut Request) -> IronResult<Response> {
+	let mut response = Response::new();
+	response.set_mut(status::Ok);
+	response.set_mut(mime!(Text/Html; Charset=Utf8));
+	response.set_mut("Initializing transaction. on. the chain.\n");
 
 	Ok(response)
 }
