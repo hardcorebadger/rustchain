@@ -1,7 +1,12 @@
 extern crate iron;
 #[macro_use] extern crate mime;
 extern crate router;
+#[macro_use]
+extern crate serde_derive;
+extern crate serde;
+extern crate serde_json;
 extern crate uuid;
+extern crate bodyparser;
 
 use iron::prelude::*;
 use iron::status;
@@ -14,6 +19,7 @@ mod block;
 mod transaction;
 
 use blockchain::Blockchain;
+use transaction::Transaction;
 
 fn main() {
 	//let mut chain = Blockchain::new();
@@ -74,11 +80,14 @@ fn get_chain(_request: &mut Request) -> IronResult<Response> {
 }
 
 fn post_transaction(_request: &mut Request) -> IronResult<Response> {
+	let body = _request.get::<bodyparser::Raw>().unwrap().unwrap();
+  let transaction: Transaction = serde_json::from_str(&body).unwrap();
+  // transaction is now ready to use
+
 	let mut response = Response::new();
 	response.set_mut(status::Ok);
 	response.set_mut(mime!(Text/Html; Charset=Utf8));
-	response.set_mut("Initializing transaction. on. the chain.\n");
+	response.set_mut("hi\n");
 
 	Ok(response)
 }
-//}
