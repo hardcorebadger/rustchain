@@ -27,7 +27,7 @@ fn main() {
         router.post("/transactions/new", post_transaction, "transaction");
         Iron::new(router).http("localhost:3000").unwrap();
         // chain.new_transaction("me","you",5);
-//}
+}
 
 fn get_hello(_request: &mut Request) -> IronResult<Response> {
 	let mut response = Response::new();
@@ -69,4 +69,4 @@ fn post_transaction(_request: &mut Request) -> IronResult<Response> {
 
 	Ok(response)
 }
-}
+//}
