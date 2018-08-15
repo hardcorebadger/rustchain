@@ -41,7 +41,7 @@ impl Blockchain {
                 };
                 let transactions = self.current_transactions.clone();
                 let proof = new_proof;
-                let previous_hash = self.hash(self.last_block());
+                let previous_hash = self.hash_last();
 
                 self.current_transactions.clear();
                 self.blocks.push( Block{index,timestamp,transactions,proof,previous_hash});
@@ -54,9 +54,17 @@ impl Blockchain {
 		self.current_transactions.push(Transaction{sender,recipient,amount});
 	}
 
-	pub fn last_block(&self) -> Option<&Block> {
+	pub fn last_block(&mut self) -> Option<&Block> {
                 self.blocks.last()
 	}
+
+        pub fn last_proof(&mut self) -> i64 {
+                self.blocks.last().unwrap().proof
+        }
+
+        fn hash_last(&mut self) -> String {
+                self.hash(self.blocks.last())
+        }
 
 	pub fn hash(&self, block: Option<&Block>) -> String {
                 // Creates a SHA-256 hash of a block
