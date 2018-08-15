@@ -1,6 +1,9 @@
 extern crate iron;
 #[macro_use] extern crate mime;
 extern crate router;
+extern crate bodyparser;
+extern crate rustc_serialize;
+use rustc_serialize::json;
 
 use iron::prelude::*;
 use iron::status;
@@ -48,16 +51,22 @@ fn get_chain(_request: &mut Request) -> IronResult<Response> {
 	let mut response = Response::new();
 	response.set_mut(status::Ok);
 	response.set_mut(mime!(Text/Html; Charset=Utf8));
-	response.set_mut("HNow listening to 'The Chain' by Fleetwood Mac.\n");
+	response.set_mut("Now listening to 'The Chain' by Fleetwood Mac.\n");
 
 	Ok(response)
 }
 
 fn post_transaction(_request: &mut Request) -> IronResult<Response> {
 	let mut response = Response::new();
+	let struct_body = _request.get::<bodyparser::Struct<TransactionRequest>>();
 	response.set_mut(status::Ok);
 	response.set_mut(mime!(Text/Html; Charset=Utf8));
-	response.set_mut("Initializing transaction. on. the chain.\n");
+	response.set_mut(("{}\n", struct_body.ok().unwrap().unwrap().address));
 
 	Ok(response)
+}
+
+#[derive(RustcEncodeable)]
+struct TransactionRequest {
+	address: String
 }
