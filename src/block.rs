@@ -1,6 +1,7 @@
 use std::fmt;
 use transaction::Transaction;
 
+#[derive(Clone)]
 pub struct Block {
 	pub index: i64,
 	pub timestamp: i64,

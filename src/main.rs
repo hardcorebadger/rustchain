@@ -76,7 +76,8 @@ fn get_mine(_request: &mut Request, _chain: Arc<RwLock<Blockchain>>,
         // index of block transaction was put on
         let new_block = ch.new_block(new_proof);
         // should always be true
-        assert_eq!(index, new_block);
+        //assert_eq!(index, new_block);
+        assert_eq!(index, new_block.index);
 
 	response.set_mut(status::Ok);
 	response.set_mut(mime!(Text/Html; Charset=Utf8));
