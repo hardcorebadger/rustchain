@@ -82,7 +82,7 @@ impl Blockchain {
                         Some(b) => {
                                 let mut hasher = Sha256::default();
                                 hasher.input(b.to_string().as_bytes());
-                                String::from_utf8(hasher.result().as_slice().to_vec()).unwrap()
+                                String::from_utf8_lossy(hasher.result().as_slice()).into_owned()
                         },
                         None => panic!("Invalid block passed to hash")
                 }
@@ -107,8 +107,8 @@ impl Blockchain {
                 let mut hasher = Sha256::default();
                 hasher.input(input_str.as_bytes());
 
-                String::from_utf8(hasher.result().as_slice().to_vec())
-                        .unwrap().starts_with("0000")
+                String::from_utf8_lossy(hasher.result().as_slice())
+                        .into_owned().starts_with("000")
         }
 
         pub fn get_chain(&self) -> ChainSnapshot {
