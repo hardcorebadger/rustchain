@@ -22,9 +22,6 @@ use blockchain::Blockchain;
 use transaction::Transaction;
 
 fn main() {
-	//let mut chain = Blockchain::new();
-	//let mut chain = Arc::new(Mutex::new(Blockchain::new()));
-        //static mut chain: Arc<RwLock<Blockchain>> = Arc::new(RwLock::new(Blockchain::new()));
         lazy_static! {
                 static ref CHAIN: Arc<RwLock<Blockchain>> = {
                         let mut chain: Arc<RwLock<Blockchain>> = Arc::new(RwLock::new(Blockchain::new()));
@@ -38,19 +35,14 @@ fn main() {
         let node_id: Uuid = Uuid::new_v4();
 
         router.get("/", get_hello, "root");
-//        let chain_ref_mine = Arc::clone(&chain);
         router.get("/mine", move |r: &mut Request| {
                 get_mine(r, Arc::clone(&CHAIN), node_id.clone()) }, "mine");
-//                get_mine(r, Arc::clone(&chain), &node_id) }, "mine");
         router.get("/chain", move |r: &mut Request| {
-                //get_chain(r, &mut chain.read().unwrap()) }, "chain");
                 get_chain(r, Arc::clone(&CHAIN)) }, "chain");
         router.post("/transactions/new", move |r: &mut Request| {
-                //post_transaction(r, &mut chain.write().unwrap()) }, "transaction");
                 post_transaction(r, Arc::clone(&CHAIN)) }, "transaction");
 
         Iron::new(router).http("localhost:3000").unwrap();
-        // chain.new_transaction("me","you",5);
 }
 
 fn get_hello(_request: &mut Request) -> IronResult<Response> {
