@@ -1,8 +1,11 @@
-extern crate sha2;
+//extern crate sha2;
+extern crate crypto;
 
 use block::Block;
 use transaction::Transaction;
-use self::sha2::{Sha256, Digest};
+//use self::sha2::{Sha256, Digest};
+use self::crypto::digest::Digest;
+use self::crypto::sha2::Sha256;
 use std::time;
 
 #[derive(Serialize, Deserialize)]
@@ -80,9 +83,10 @@ impl Blockchain {
                 // Creates a SHA-256 hash of a block
                 match block {
                         Some(b) => {
-                                let mut hasher = Sha256::default();
-                                hasher.input(b.to_string().as_bytes());
-                                String::from_utf8_lossy(hasher.result().as_slice()).into_owned()
+                                let mut hasher = Sha256::new();
+                                hasher.input_str(&b.to_string());
+                                //String::from_utf8_lossy(hasher.result().as_slice()).into_owned()
+                                hasher.result_str()
                         },
                         None => panic!("Invalid block passed to hash")
                 }
@@ -104,11 +108,11 @@ impl Blockchain {
                 input_str.push_str(last_proof.to_string().as_str());
                 input_str.push_str(new_proof.to_string().as_str());
 
-                let mut hasher = Sha256::default();
-                hasher.input(input_str.as_bytes());
-
-                String::from_utf8_lossy(hasher.result().as_slice())
-                        .into_owned().starts_with("000")
+                let mut hasher = Sha256::new();
+                hasher.input_str(&input_str);
+                hasher.result_str().starts_with("000")
+                //String::from_utf8_lossy(hasher.result().as_slice())
+                //        .into_owned().starts_with("000")
         }
 
         pub fn get_chain(&self) -> ChainSnapshot {
