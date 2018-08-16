@@ -85,14 +85,13 @@ fn get_chain(_request: &mut Request, _chain: Arc<RwLock<Blockchain>>) -> IronRes
         let ch = _chain.read().unwrap();
 
         let full_chain = ch.get_chain();
-        let chain_length = full_chain.len();
 
         // parse full_chain into response?
-        // let json = serde_json::to_string(&somestructobject)?;
+        let json = serde_json::to_string(&full_chain);
 
 	response.set_mut(status::Ok);
 	response.set_mut(mime!(Text/Html; Charset=Utf8));
-	response.set_mut("Now listening to 'The Chain' by Fleetwood Mac.\n");
+	response.set_mut(json.unwrap());
 
 	Ok(response)
 }
@@ -112,7 +111,7 @@ fn post_transaction(_request: &mut Request, _chain: Arc<RwLock<Blockchain>>) -> 
 	let mut response = Response::new();
 	response.set_mut(status::Ok);
 	response.set_mut(mime!(Text/Html; Charset=Utf8));
-	response.set_mut("hi\n");
+	response.set_mut(format!("transaction complete: block index: {}\n", index));
 
 	Ok(response)
 }

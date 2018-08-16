@@ -11,6 +11,11 @@ pub struct Blockchain {
 	current_transactions: Vec<Transaction>
 }
 
+#[derive(Serialize, Deserialize)]
+pub struct ChainSnapshot {
+        blocks: Vec<Block>
+}
+
 impl Blockchain {
 
 	pub fn new() -> Blockchain {
@@ -106,7 +111,7 @@ impl Blockchain {
                         .unwrap().starts_with("0000")
         }
 
-        pub fn get_chain(&self) -> Vec<Block> {
-                self.blocks.clone()
+        pub fn get_chain(&self) -> ChainSnapshot {
+                ChainSnapshot{blocks: self.blocks.clone()}
         }
 }
