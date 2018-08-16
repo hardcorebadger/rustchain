@@ -31,7 +31,7 @@ impl Blockchain {
 		Blockchain{blocks,current_transactions}
 	}
 
-	pub fn new_block(&mut self, new_proof: i64) {
+	pub fn new_block(&mut self, new_proof: i64) -> i64 {
                 // Create a new block in the blockchain
                 let index = (self.blocks.len()+1) as i64;
                 let timestamp = match time::SystemTime::now()
@@ -44,14 +44,19 @@ impl Blockchain {
                 let previous_hash = self.hash_last();
 
                 self.current_transactions.clear();
-                self.blocks.push( Block{index,timestamp,transactions,proof,previous_hash});
+                //let new_block = Block{index,timestamp,transactions,proof,previous_hash};
+                //self.blocks.push( new_block.clone() );
+                //new_block
+                self.blocks.push(Block{index,timestamp,transactions,proof,previous_hash});
+                index
 	}
 
-	pub fn new_transaction(&mut self, s:&str, r:&str, amount:i64) {
+	pub fn new_transaction(&mut self, s:&str, r:&str, amount:i64) -> i64 {
                 // Create a new transaction to go into the next mined block
 		let sender = s.to_owned();
 		let recipient = r.to_owned();
 		self.current_transactions.push(Transaction{sender,recipient,amount});
+                (self.blocks.len()+1) as i64  // index of next block
 	}
 
 	pub fn last_block(&mut self) -> Option<&Block> {
