@@ -71,6 +71,8 @@ fn get_mine(_request: &mut Request, _chain: Arc<RwLock<Blockchain>>,
         //assert_eq!(index, new_block);
         assert_eq!(index, new_block.index);
 
+        // parse new_block into response?
+
 	response.set_mut(status::Ok);
 	response.set_mut(mime!(Text/Html; Charset=Utf8));
 	response.set_mut("Click. ** That's the sound of me mining a new block **\n");
