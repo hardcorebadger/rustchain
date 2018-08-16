@@ -73,7 +73,7 @@ fn get_mine(_request: &mut Request, _chain: Arc<RwLock<Blockchain>>,
 
         // index of block transaction will be put on
         let index = ch.new_transaction("0", node_id_str.as_str(), 1);
-        // index of block transaction was put on
+        // block transaction was put on
         let new_block = ch.new_block(new_proof);
         // should always be true
         //assert_eq!(index, new_block);
