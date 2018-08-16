@@ -91,7 +91,7 @@ impl Blockchain {
                 p
         }
 
-        fn valid_proof(&self, last_proof: i64, new_proof: i64) -> bool{
+        fn valid_proof(&self, last_proof: i64, new_proof: i64) -> bool {
                 // Validate the proof: Does hash(last_proof,new_proof)
                 // contain 4 leading zeros
                 let mut input_str = String::new();
@@ -103,5 +103,9 @@ impl Blockchain {
 
                 String::from_utf8(hasher.result().as_slice().to_vec())
                         .unwrap().starts_with("0000")
+        }
+
+        pub fn get_chain(&self) -> Vec<Block> {
+                self.blocks.clone()
         }
 }

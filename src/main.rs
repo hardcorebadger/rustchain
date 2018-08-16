@@ -90,8 +90,8 @@ fn get_chain(_request: &mut Request, _chain: Arc<RwLock<Blockchain>>) -> IronRes
 	let mut response = Response::new();
         let ch = _chain.read().unwrap();
 
-        //let full_chain = _chain.get_full_chain();
-        //let chain_length = full_chain.length();
+        let full_chain = ch.get_chain();
+        let chain_length = full_chain.len();
 
         // parse full_chain into response?
 
