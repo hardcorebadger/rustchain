@@ -88,6 +88,7 @@ fn get_chain(_request: &mut Request, _chain: Arc<RwLock<Blockchain>>) -> IronRes
         let chain_length = full_chain.len();
 
         // parse full_chain into response?
+        // let json = serde_json::to_string(&somestructobject)?;
 
 	response.set_mut(status::Ok);
 	response.set_mut(mime!(Text/Html; Charset=Utf8));

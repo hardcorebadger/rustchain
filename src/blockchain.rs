@@ -5,6 +5,7 @@ use transaction::Transaction;
 use self::sha2::{Sha256, Digest};
 use std::time;
 
+#[derive(Serialize, Deserialize)]
 pub struct Blockchain {
 	blocks: Vec<Block>,
 	current_transactions: Vec<Transaction>
