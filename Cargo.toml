@@ -4,6 +4,7 @@ version = "0.1.0"
 authors = ["Jake <jake.trefethen@gmail.com>"]
 
 [dependencies]
+bodyparser = "0.7"
 iron = "0.5.1"
 lazy_static = "1.1"
 mime = "0.2.3"
@@ -14,8 +15,3 @@ serde = "1.0"
 serde_json = "1.0"
 serde_derive = "1.0"
 uuid = { version = "0.6", features = ["v4"] }
-
-[dependencies.bodyparser]
-git = "https://github.com/iron/body-parser.git"
-
-
