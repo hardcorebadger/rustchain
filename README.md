@@ -8,7 +8,7 @@ Startup rustchain by running `cargo run` in this directory. Once it starts up a 
 This returns a json array of the blockchain to date
 
 ### GET /mine
-This mines the chain
+This mines a new block that contains all pending transactions onto the chain.
 
 ## POST /transactions/new
 
@@ -18,4 +18,4 @@ This mines the chain
   "amount" : 25
 }
 
-Sending a request with the body in the form above (in raw text json) will push a new transaction onto the chain. It will be mined into the chain the next time you call /mine
+Sending a request with the body in the form above (in raw text json) will push a new transaction to be put on the chain. It will be mined into the chain the next time you call /mine

@@ -101,7 +101,9 @@ fn post_transaction(_request: &mut Request, _chain: Arc<RwLock<Blockchain>>) -> 
         let transaction: Transaction = serde_json::from_str(&body).unwrap();
         // transaction is now ready to use
 
+        print!("before tx lock");
         let mut ch = _chain.write().unwrap();
+        print!("after tx lock");
 
         // index of block this transaction will be on
         let index = ch.new_transaction(transaction.sender.as_str(), 
