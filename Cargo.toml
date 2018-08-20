@@ -1,7 +1,7 @@
 [package]
 name = "rustchain"
 version = "0.1.0"
-authors = ["Jake <jake.trefethen@gmail.com>"]
+authors = ["Jake <jake.trefethen@gmail.com>", "Abraham <abraham.aco@outlook.com>"]
 
 [dependencies]
 bodyparser = "0.7"
