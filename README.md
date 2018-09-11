@@ -19,3 +19,5 @@ This mines a new block that contains all pending transactions onto the chain.
 }
 
 Sending a request with the body in the form above (in raw text json) will push a new transaction to be put on the chain. It will be mined into the chain the next time you call /mine
+
+This program is licensed under the "MIT License". Please see the file `LICENSE` in this distribution for license terms.
